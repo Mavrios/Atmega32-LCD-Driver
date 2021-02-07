@@ -62,4 +62,6 @@ void CLCD_voidSetPosition(u8 Copy_u8Row ,u8 Copy_u8Coloum);
 void CLCD_voidClearDisplay(void);
 
 void CLCD_voidSendExtraChar(void);
+
+void CLCD_voidMoveDirection(u8 Copy_u8Direction);
 #endif /* HAL_04__CLCD_CLCD_INTERFACE_H_ */

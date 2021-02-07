@@ -28,9 +28,10 @@ void CLCD_voidInit(void) {
 	CLCD_voidSendCommend(CLCD_8PIN_FUNCTION_SET);
 //	Display ON/OFF Control
 	_delay_ms(1);
+//	TURN OFF CURSOR
 #if CLCD_DISPLAY_CURSOR == CLCD_CURSOR_OFF
 	CLCD_voidSendCommend(0b00001100);
-
+//TRUN ON CURSOR
 #elif CLCD_DISPLAY_CURSOR == CLCD_CURSOR_ON
 	CLCD_voidSendCommend(0b00001110);
 #endif
@@ -76,16 +77,38 @@ void CLCD_voidInit(void) {
 //	Display ON/OFF Control
 	_delay_ms(1);
 	CLCD_voidSendCommend(0b00000000);
+
+#if CLCD_DISPLAY_CURSOR == CLCD_CURSOR_OFF
 	CLCD_voidSendCommend(0b11000000);
-//	Display Clear
+#elif CLCD_DISPLAY_CURSOR == CLCD_CURSOR_ON
+	CLCD_voidSendCommend(0b11100000);
+#endif
+	//	Display Clear
 	_delay_ms(1);
 	CLCD_voidSendCommend(0b00000000);
 	CLCD_voidSendCommend(0b00010000);
 	_delay_ms(2);
 //	Entry Mode Set
+
+	//	CURSUR AUTO INCREMENT (MOVE FROM LEFT TO RIGHT)
+#if (CLCD_MOVE_DIRECTION ==  CLCD_LEFT_RIGHT && CLCD_AUTO_SHIFT == CLCD_SHIFT_DISABLE)
 	CLCD_voidSendCommend(0b00000000);
 	CLCD_voidSendCommend(0b01100000);
+#endif
+
+#if (CLCD_AUTO_SHIFT == CLCD_SHIFT_LEFT)
+	CLCD_voidSendCommend(0b00000000);
+	CLCD_voidSendCommend(0b01110000);
+#endif
+
+#if (CLCD_AUTO_SHIFT == CLCD_SHIFT_RIGHT)
+	CLCD_voidSendCommend(0b00000000);
+	CLCD_voidSendCommend(0b01010000);
+#endif
+
 	_delay_ms(1);
+
+
 #endif
 
 }
@@ -165,4 +188,15 @@ void CLCD_voidSendExtraChar(void) {
 void CLCD_voidClearDisplay(void) {
 	CLCD_voidSendCommend(0b00000001);
 	_delay_ms(2);
+}
+
+
+void CLCD_voidMoveDirection(u8 Copy_u8Direction){
+	if(Copy_u8Direction == CLCD_LEFT_RIGHT){
+		CLCD_voidSendCommend(0b00000110);
+	}
+	else if((Copy_u8Direction == CLCD_RIGHT_LEFT)){
+		CLCD_voidSendCommend(0b00000100);
+	}
+	_delay_ms(1);
 }
