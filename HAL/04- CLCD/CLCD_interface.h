@@ -30,6 +30,24 @@
 #define CLCD_COL_16		16
 
 
+#define CLCD_8BIT_PIN 		0
+#define CLCD_4BIT_PIN 		1
+
+#define CLCD_LEFT_RIGHT 	0
+#define CLCD_RIGHT_LEFT 	1
+
+#define CLCD_SHIFT_DISABLE	0
+#define CLCD_SHIFT_LEFT 	1
+#define CLCD_SHIFT_RIGHT 	2
+
+#define CLCD_CURSOR_ON	1
+#define CLCD_CURSOR_OFF	0
+
+
+
+
+
+
 void CLCD_voidInit(void);
 
 
